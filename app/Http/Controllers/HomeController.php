@@ -102,7 +102,7 @@ class HomeController extends Controller
         $search = $request->search;
 
         $users = \DB::table('users')
-                ->where('name', 'like',  $search .'%')
+                ->where('name', 'like', '%'. $search .'%')
                 ->get();
           
         return view('/users', ['users' => $users]);

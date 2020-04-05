@@ -15,9 +15,9 @@
                 <span><b>Specifications</b></span>
                 <p>{{$post->description}}</p>
 
-                @if($post->reference != null)
+                @if(!empty($post->reference))
                     <span class="w-100 float-left"><b>References</b></span>
-                    <a href="#" class="w-100 float-left mb-4">{{$post->reference}}</a>
+                    <a href="https://t.me/{{str_replace('@', '', $post->reference)}}" target="_blank" class="w-100 float-left mb-4">Telegram {{$post->reference}}</a>
                 @endif
                 @if($post->contact != null)
                     <span class="w-100 float-left"><b>Contacts</b></span>
@@ -26,7 +26,7 @@
 
             </div>
             <div class="publication-block-footer mt-4 w-100 d-flex justify-content-between">
-                <a href="#" class="custom-btn">Send a message</a>
+                <a href="https://t.me/{{str_replace('@', '', $post->reference)}}" target="_blank" class="custom-btn">Send a message</a>
                 <a href="{{url()->previous()}}" class="custom-btn">Back</a>
             </div>
         </div>

@@ -38,7 +38,9 @@ class PostController extends Controller
             'name' => 'required',
             'about' => 'required',
             'description' => 'required',
-            'user_id' => 'required'
+            'user_id' => 'required',
+            'contact' => '',
+            'reference' => ''
         ]);
 
         Post::create($validatedReq);
@@ -83,7 +85,9 @@ class PostController extends Controller
             'name' => 'required',
             'about' => 'required',
             'description' => 'required',
-            'user_id' => 'required'
+            'user_id' => 'required',
+            'contact' => '',
+            'reference' => ''
         ]);
         $post->update($validatedReq);
         return redirect()
@@ -124,7 +128,7 @@ class PostController extends Controller
         $search = $request->search;
 
         $posts = \DB::table('posts')
-                ->where('name', 'like',  $search .'%')
+                ->where('name', 'like', '%'. $search .'%')
                 ->get();
         
         return view('/home', ['posts' => $posts]);

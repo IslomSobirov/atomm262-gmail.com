@@ -20,7 +20,7 @@
                   <p class="mt-4">Details</p>
                   <textarea name="description" required rows="7" class="custom-input" placeholder="Project details"></textarea>
 
-                  <input type="text" name="reference" class="custom-input mt-4" placeholder="Link you want to leave">
+                  <input type="text" name="reference" class="custom-input mt-4" placeholder="Telegram username">
                   <input name="user_id" type="hidden" value="{{Auth::user()->id}}">
 
                   <input type="submit" class="custom-btn custom-btn-accent mt-2 ml-2 float-right" value="Save">
