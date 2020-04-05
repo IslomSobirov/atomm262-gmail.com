@@ -226,6 +226,6 @@
 		</div>
 	</div> -->
 
-	<script src="js/scripts.min.js"></script>
+	<script src="{{asset('ext/js/scripts.min.js')}}"></script>
 </body>
 </html>

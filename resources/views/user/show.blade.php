@@ -37,7 +37,7 @@
             </div>
             <div class="publication-block-footer mt-4 w-100 d-flex justify-content-between">
                 <a href="#" class="custom-btn">Send a message</a>
-                <a href="{{url()->previous()}}" class="custom-btn">Back</a>
+                <a href="/users" class="custom-btn">Back</a>
             </div>
 
         </div>

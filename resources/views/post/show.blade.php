@@ -27,7 +27,7 @@
             </div>
             <div class="publication-block-footer mt-4 w-100 d-flex justify-content-between">
                 <a href="https://t.me/{{str_replace('@', '', $post->reference)}}" target="_blank" class="custom-btn">Send a message</a>
-                <a href="{{url()->previous()}}" class="custom-btn">Back</a>
+                <a href="/home" class="custom-btn">Back</a>
             </div>
         </div>
     </div>

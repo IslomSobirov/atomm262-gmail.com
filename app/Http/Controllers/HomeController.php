@@ -106,6 +106,7 @@ class HomeController extends Controller
                 ->get();
           
         return view('/users', ['users' => $users]);
+        // return back()->withInput(['users' => $users]);
         
     }
 
