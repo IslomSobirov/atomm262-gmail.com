@@ -18,9 +18,10 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::resource('/post', 'PostController');
 Route::post('/changePassword', 'ChangePasswordController@changePassword')->name('changePassword');
 Route::post('/post/search', 'PostController@search');
-Route::resource('/post', 'PostController');
 
 Route::get('/users/{id}', 'HomeController@user');
 Route::get('/home', 'HomeController@index')->name('home');

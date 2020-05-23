@@ -1,7 +1,7 @@
 @extends('layouts.logReg')
 @section('content')
     <div class="row mt-5">
-        <div class="offset-xl-4 offset-lg-4 offset-md-4 offset-1 col-xl-4 col-lg-4 col-md-4 col-sm-10 col-xs-10">
+        <div class="offset-xl-4 offset-lg-4 offset-md-4 offset-md-1 col-xl-4 col-lg-4 col-md-4 col-sm-10 col-xs-10">
             <a href="/"><img src="{{asset('ext2/images/logo.svg')}}" alt="" class="d-block mx-auto"></a>
             <div class="login-block mt-5">
                 <h4><b>Sign Up</b></h4>

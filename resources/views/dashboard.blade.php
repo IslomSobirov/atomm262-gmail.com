@@ -56,11 +56,11 @@
         </div>
         <div class="offset-1 col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12">
         <h2>Extra Information</h2>
-        <p>About</p>
+        <p>About <span class="text-small">(160 symbols)</span></p>
         <form action="{{route('about')}}" method="POST">
             @csrf
             @method('PUT')
-        <textarea name="about" rows="5" class="w-100 custom-input" placeholder="Type about yourself">{{Auth::user()->about}}</textarea>
+        <textarea name="about" rows="5" class="w-100 custom-input" placeholder="Type about yourself" maxlength="160">{{Auth::user()->about}}</textarea>
             <input type="submit" class="custom-btn mt-2 float-right" value="Save">
         </form>
         <div class="publication-list mt-5">

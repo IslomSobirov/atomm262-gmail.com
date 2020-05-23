@@ -14,7 +14,7 @@
         <div class="user-block">
             <div class="d-flex">
                 <div class="user-image mr-4 ">
-                    <img class="w-100" src="{{asset($user->avatar)}}" alt="">
+                    <img class="w-100" src="{{$user->avatar ? asset($user->avatar) : asset('ext/img/no-image.webp')}}" alt="">
                 </div>
 
                 <div class="user-info mt-4">
@@ -33,11 +33,11 @@
                 <a href="#" class="w-100 float-left mb-4">https://claire-murphy.co</a> --}}
 
                 <span class="w-100 float-left"><b>Contacts</b></span>
-                <a href="#">+998 {{$user->contact}}</a>
+                <a href="tel:+998 {{$user->contact}} ">+998 {{$user->contact}}</a>
             </div>
             <div class="publication-block-footer mt-4 w-100 d-flex justify-content-between">
-                <a href="#" class="custom-btn">Send a message</a>
-                <a href="/users" class="custom-btn">Back</a>
+                <!-- <a href="#" class="custom-btn">Send a message</a> -->
+                <a href="{{url()->previous()}}" class="custom-btn">Back</a>
             </div>
 
         </div>

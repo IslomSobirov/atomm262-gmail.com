@@ -17,17 +17,18 @@
             <div class="user-block my-2 d-flex">
                 <div class="user-block-image mr-3">
                     <div class="user-image">
-                        <img class="w-100" src=" {{asset($user->avatar)}}" alt="">
+                        <img class="w-100" src=" {{$user->avatar ? asset($user->avatar) : asset('ext/img/no-image.webp')}}" alt="">
                     </div>
                 </div>
                 <div class="user-block-info">
                     <h5 class="user-block-name">{{$user->name}}</h5>
                     <p class="user-block-stack">{{$user->role ? $user->role : "Not entered yet"}}</p>
-                    <p>{{$user->about ? $user->about : "Looking forwart to accomplish the tasks"}}</p>
+                    <p>{{$user->about ? $user->about : "Looking forward to accomplish the tasks"}}</p>
                 </div>
             </div>
         </a>
     @endforeach
   </div>
+{{ $users->links() }}
 </div>
 @endsection

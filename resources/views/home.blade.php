@@ -13,7 +13,7 @@
                         @if(isset($post->user->name))
                         <p class="publication-block-author">{{ $post->user->name }}</p>
                         @endif
-                        <p>{{ Str::words($post->description, 10)}}</p>
+                        <p>{{ Str::words($post->about, 10)}}</p>
                     </div>
                 </a>   
             @endforeach

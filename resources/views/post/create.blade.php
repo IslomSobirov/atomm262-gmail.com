@@ -12,7 +12,7 @@
                     </ul>
                 </div>
                 @endif
-              <form action="/post/" class="w-100" method="POST">
+              <form action="/post" class="w-100" method="POST">
                 @csrf
                   <input type="text" name="name" class="custom-input mt-4" required placeholder="Project title">
                   <p class="mt-4">About</p>

@@ -47,7 +47,7 @@ class PostController extends Controller
 
         return redirect()
                 ->action('HomeController@index')
-                ->with(['msg' => 'Project has been created successfuly']);
+                ->with(['msg' => 'Post has been created successfuly']);
     }
 
     /**

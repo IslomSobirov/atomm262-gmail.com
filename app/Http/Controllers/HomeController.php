@@ -21,7 +21,8 @@ class HomeController extends Controller
     //home page
     public function index()
     {
-        $posts = Post::all();
+        $posts = \DB::table('posts')->orderBy('created_at', 'desc')->get();
+        
         return view('home', ['posts' => $posts]);
     }
 
@@ -88,7 +89,8 @@ class HomeController extends Controller
     //See all users
     public function users()
     {
-        $users = \DB::table('users')->where('profileType', 'freelancer')->get();
+        $users = User::where('profileType', 'freelancer')->paginate(10);
+        
         return view('/users', ['users' => $users]);
     }
 
@@ -106,7 +108,6 @@ class HomeController extends Controller
                 ->get();
           
         return view('/users', ['users' => $users]);
-        // return back()->withInput(['users' => $users]);
         
     }
 
