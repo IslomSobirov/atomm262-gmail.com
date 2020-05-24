@@ -13,11 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
+//Admin Page Controller
+Route::get('/admin', 'AdminPageController@index');
+Route::get('/admin/post', 'AdminPageController@publications');
+
 
 Route::resource('/post', 'PostController');
 Route::post('/changePassword', 'ChangePasswordController@changePassword')->name('changePassword');
