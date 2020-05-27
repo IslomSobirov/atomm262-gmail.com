@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-
-	<title>Admin Page</title>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		
+		<title>Admin Page</title>
 
 	<!-- Main Styles -->
 	<link rel="stylesheet" href="{{ asset('assets/styles/style.min.css') }}">
@@ -39,14 +39,12 @@
 </head>
 <body>
     
+	
 @include('layouts.adminLayouts.mainMenu')
 @include('layouts.adminLayouts.navbar')
-    @yield('content')
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-		<script src="assets/script/html5shiv.min.js"></script>
-		<script src="assets/script/respond.min.js"></script>
-	<![endif]-->
+	@yield('content')
+	
+	
 	<!-- 
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
@@ -78,3 +76,4 @@
 	<script src="{{asset('assets/scripts/main.min.js')}}"></script>
 </body>
 </html>
+

@@ -20,6 +20,7 @@
 					</div> --}}
 					<!-- /.dropdown js__dropdown -->
 					<div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+						@include('layouts.message')
 						<div class="row">
 							{{-- <div class="col-sm-6">
 								<div class="dataTables_length" id="example_length">
@@ -80,9 +81,9 @@
 									<td>{{ $user->role }}</td>
 									<td>{{ $user->contact }}</td>
 									<td class="sorting_1">
-										<a style="margin-right:10px;" class="btn btn-info btn-xs waves-effect waves-light">Show</a>
-										<a style="margin-right:10px;" class="btn btn-warning btn-xs waves-effect waves-light">Edit</a>
-										<button id="sal-warning" class="btn btn-danger btn-xs waves-effect waves-light">Delete</button>
+										{{-- <a class="btn btn-info btn-xs waves-effect waves-light">Show</a> --}}
+										<a href="{{ route('makeUserAdmin', $user->id) }}" class="btn btn-warning btn-xs waves-effect waves-light"> Make admin</a>
+										<a href="{{ route('adminDeleteUser', $user->id) }}" id="sal-warning" class="btn btn-danger btn-xs waves-effect waves-light">Delete</a>
 									</td>
 								</tr>
 							@endforeach

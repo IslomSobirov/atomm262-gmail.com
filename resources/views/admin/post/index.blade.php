@@ -7,6 +7,7 @@
 				<div class="box-content">
                     <h4 class="box-title">Publications</h4>
                         <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+						@include('layouts.message')
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div id="example_filter" class="dataTables_filter">
@@ -38,7 +39,7 @@
                                                     <td>
                                                         <a style="margin-right:10px;" class="btn btn-info btn-xs waves-effect waves-light">Show</a>
                                                         <a style="margin-right:10px;" class="btn btn-warning btn-xs waves-effect waves-light">Edit</a>
-                                                        <button id="sal-warning" class="btn btn-danger btn-xs waves-effect waves-light">Delete</button>
+                                                        <a href="{{ route('adminDeletePost', $post->id) }}" id="sal-warning" class="btn btn-danger btn-xs waves-effect waves-light">Delete</a>
                                                     </td>
                                                 </tr>
                                         @endforeach

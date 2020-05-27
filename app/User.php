@@ -45,4 +45,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
 
+    public function userRole()
+    {
+        return $this->hasOne('App\Role');
+    }
+
+
+    public function isAdmin()
+    {   if($this->userRole == null) {
+            return false;
+        }
+        return $this->userRole->name == 'admin';
+    }
 }

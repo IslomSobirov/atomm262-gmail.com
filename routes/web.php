@@ -23,6 +23,9 @@ Auth::routes();
 //Admin Page Controller
 Route::get('/admin', 'AdminPageController@index');
 Route::get('/admin/post', 'AdminPageController@publications');
+Route::get('/admin/user/{id}/delete', 'AdminPageController@delete')->name('adminDeleteUser');
+Route::get('/admin/post/{id}/delete', 'AdminPageController@deletePost')->name('adminDeletePost');
+Route::get('/admin/user/{id}/makeAdmin', 'AdminPageController@makeAdmin')->name('makeUserAdmin');
 
 
 Route::resource('/post', 'PostController');
