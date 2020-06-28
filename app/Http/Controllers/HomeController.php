@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Post;
 use App\User;
+use App\UserSkill;
+use App\Skill;
 
 use Illuminate\Http\Request;
 use App\Traits\ImageUpload;
@@ -17,11 +19,12 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    
+
     //home page
     public function index()
     {
-        $posts = \DB::table('posts')->orderBy('created_at', 'desc')->get();
+        // $posts = \DB::table('posts')->orderBy('created_at', 'desc')->get();
+        $posts = Post::all();
         
         return view('home', ['posts' => $posts]);
     }
@@ -30,19 +33,38 @@ class HomeController extends Controller
     public function dashboard()
     {
         $userPosts = Auth()->user()->posts;
-        return view('dashboard', ['userPosts' => $userPosts]);
+        $userSkills = Auth()->user()->skills;
+        $skills = Skill::all();
+
+        
+        return view('dashboard', [
+            'userPosts' => $userPosts,
+            'userSkills' => $userSkills,
+            'skills' => $skills
+        ]);
     }
 
     //Change about of the user
     public function changeAbout(Request $request)
     {
+        $skills = $request->skills;
+        // dd($request->skills);
         $validated = $request->validate([
             'about' => 'min:15'
         ]);
 
+        $user = \App\User::find(auth()->user()->id);
+
+        foreach($skills as $skill) {
+            UserSkill::create([
+                'name' => $skill,
+                'user_id' => $user->id
+            ]);
+        }
+
         \App\User::find(auth()->user()->id)->update($validated);
 
-        return redirect()->back()->with('msg', 'About info of user has been updated successfuly');
+        return redirect()->back()->with('msg', 'About info of user has been updated successfully');
     }
 
 
@@ -55,13 +77,13 @@ class HomeController extends Controller
             'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'contact' => ''
         ]);
-        
+
         if(isset($request->avatar))
         {
-            
+
             $request->avatar;
             $filePath = $this->UserImageUpload($request->avatar); //Passing $data->image as parameter to our created method
-            
+
             if(\File::exists(Auth()->user()->avatar)) {
                 \File::delete(Auth()->user()->avatar);
             }
@@ -74,15 +96,16 @@ class HomeController extends Controller
             ]);
             return redirect()
                     ->back()
-                    ->with('msg', 'Personal info of user has been updated successfuly');
+                    ->with('msg', 'Personal info of user has been updated successfully');
 
         }
 
-        \App\User::find(auth()->user()->id)->update($validated);
+        \App\User::find(auth()->user()->id)
+            ->update($validated);
         return redirect()
                     ->back()
-                    ->with('msg', 'Personal info of user has been updated successfuly');
-        
+                    ->with('msg', 'Personal info of user has been updated successfully');
+
     }
 
 
@@ -90,7 +113,7 @@ class HomeController extends Controller
     public function users()
     {
         $users = User::where('profileType', 'freelancer')->paginate(10);
-        
+
         return view('/users', ['users' => $users]);
     }
 
@@ -106,9 +129,8 @@ class HomeController extends Controller
         $users = \DB::table('users')
                 ->where('name', 'like', '%'. $search .'%')
                 ->get();
-          
         return view('/users', ['users' => $users]);
-        
+
     }
 
     public function user($id)

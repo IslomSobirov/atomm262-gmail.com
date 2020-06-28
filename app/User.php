@@ -17,8 +17,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'userName',  'about', 'email', 'contact',
-        'profileType', 'avatar', 'role', 'password',
+        'name',
+        'userName',
+        'about',
+        'email',
+        'contact',
+        'profileType',
+        'avatar', 
+        'role',
+        'password',
     ];
 
     /**
@@ -50,11 +57,28 @@ class User extends Authenticatable
         return $this->hasOne('App\Role');
     }
 
-
+    //Check if admin
     public function isAdmin()
     {   if($this->userRole == null) {
             return false;
         }
         return $this->userRole->name == 'admin';
+    }
+
+    //User skills
+    public function skills()
+    {
+        return $this->hasMany('App\UserSkill');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany('App\Message');
+    }
+
+    public function fromUser($id)
+    {
+        $user = self::find($id);
+        return $user;
     }
 }

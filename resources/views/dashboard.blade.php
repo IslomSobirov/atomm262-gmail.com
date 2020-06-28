@@ -1,7 +1,7 @@
 @extends('layouts.navAndFooter')
 @section('content')
 @include('layouts.message')
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <h2>Settings</h2>
             <form action="{{ route('personalInfo') }}" method="POST" enctype="multipart/form-data" class="w-100">
@@ -82,5 +82,155 @@
             @endforeach
         </div>
         </div>
+    </div> --}}
+
+
+
+
+    {{-- <div class="row settings mt-4"> --}}
+        <div class="col-12">
+            <h6 class="title">Настройки</h6>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="inner-blocks">
+                <h6><img src="{{ asset('data/img/contact.svg') }}" alt=""> Общая информация</h6>
+                <form action="{{ route('personalInfo') }}" method="POST" enctype="multipart/form-data">
+                    <div class="text-center user-image-block">
+                        <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('ext2/images/user-avatar.jpg')}}" class="user-image" alt="">
+                        <input name="avatar" type="file" name="" id="userimage">
+                        <label for="userimage" class="userimage-label">
+                            <img src="{{ asset('data/img/camera.svg') }} " alt="">
+                        </label>
+                    </div>
+                    <input name="name" type="text" value="{{Auth::user()->name}}" class="input-style" placeholder="Полное имя">
+        
+                    <select name="role" id="" class="input-style">
+                        @if(Auth::user()->role != null)
+                            <option value="{{Auth::user()->role}}">{{Auth::user()->role}}</option>
+                        @endif
+                        <option value="Design">Design</option>
+                        <option value="Front-end">Front-end</option>
+                        <option value="Back-end">Back-end</option>
+                    </select>
+                    <input name="contact" type="text" class="input-style" value="{{Auth::user()->contact}}" pattern="[0-9]{2}[0-9]{3}[0-9]{4}" placeholder="Имя пользователя в Telegram">
+                    <div class="text-right">
+                        <button class="save-btn back-btn">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+            {{-- <button class="delete-btn" data-toggle="modal" data-target="#myModal" type="button">Удалить аккаунт</button> --}}
+        </div>
+        <div class="col-lg-4">
+            <div class="inner-blocks">
+                <h6>
+                    <img src="{{ asset('data/img/lock.svg') }}" alt=""> Безопасность</h6>
+                <form action="{{ route('changePassword') }}" method="POST">
+                    @csrf
+                    {{-- <input type="email" class="input-style" placeholder="Эл. почта"> --}}
+                    
+                    <div class="my-input-group">
+                        <input name="currentPassword" type="password" placeholder="Текущий пароль" class="input-style @error('password') is-invalid @enderror" required>
+                        @error('currentPassword')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <button type="button" class="show-password">
+                            <img width="17" src="{{ asset('data/img/eye.svg') }}" alt="">
+                        </button>
+                    </div>
+
+                    <div class="my-input-group">
+                        <input name="password" type="password" class="input-style @error('password') is-invalid @enderror" required placeholder="Новый пароль">
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <button type="button" class="show-password">
+                            <img width="17" src="{{ asset('data/img/eye.svg') }}" alt="">
+                        </button>
+                    </div>
+
+                    <div class="my-input-group">
+                        <input name="confirm" type="password" class="input-style" placeholder="Подтвердите пароль">
+                        @error('confirm')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <button type="button" class="show-password">
+                            <img width="17" src="{{ asset('data/img/eye.svg') }}" alt="">
+                        </button>
+                    </div>
+                    
+                    <div class="text-right">
+                        <button type="submit" class="save-btn back-btn">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-5 mt-sm-4">
+            <div class="inner-blocks">
+                <h6>
+                <img src="{{ asset('data/img/add.svg') }}" alt=""> Дополнительно</h6>
+                <?php $num = count($userSkills) ?>
+                <h6>Мои навыки: 
+                    @for ($i = 0; $i < $num; $i++)
+                        {{ $userSkills[$i]->name }}   
+                        @if($i != $num-1)
+                            ,
+                        @endif
+                    @endfor
+                    
+                </h6>
+                <form action="{{route('about')}}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    {{-- <input type="text" class="input-style" placeholder="Ссылка на портфолио"> --}}
+
+                    <select name="skills[]" class="selectpicker select-input multiselect1" multiple data-live-search="true">
+                        @foreach ($skills as $skill)
+                            <option>{{ $skill->name }}</option>
+                        @endforeach
+                    </select>
+                    
+                    <textarea name="about" id="" cols="30" rows="5" class="input-style" placeholder="О себе">{{Auth::user()->about}}</textarea>
+                    <div class="text-right">
+                        <button class="save-btn back-btn">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- </div>   --}}
+
+<!-- The Modal -->
+{{-- <div class="modal fade" id="myModal">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <form action="">
+            <div class="modal-header">
+                <h4 class="modal-title">Удалить аккаунт</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <h6>Чтобы удалить аккаунт, введите пароль.</h6>
+                <div class="my-input-group">
+                    <input type="password" id="delete-input" placeholder="Пароль" class="input-style"> 
+                    <button type="button" class="show-password"><img width="17" src="{{ asset('data/img/eye.svg') }}" alt=""></button>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Закрыть</button>
+                <button class="btn btn-danger modal-delete-btn" data-dismiss="modal">Удалить</button>
+            </div>
+        </form>
+    </div> --}}
 @endsection

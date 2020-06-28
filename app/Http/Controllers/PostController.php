@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\PostSkill;
+use App\Skill;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -23,7 +25,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post/create');
+        $skills = Skill::all();
+
+        return view('post/create', [
+            'skills' => $skills
+        ]);
     }
 
     /**
@@ -34,6 +40,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $skills = $request->skills;
         $validatedReq = $request->validate([
             'name' => 'required',
             'about' => 'required',
@@ -43,7 +50,13 @@ class PostController extends Controller
             'reference' => ''
         ]);
 
-        Post::create($validatedReq);
+        $post = Post::create($validatedReq);
+        foreach($skills as $skill) {
+            PostSkill::create([
+                'name' => $skill,
+                'post_id' => $post->id
+            ]);
+        }
 
         return redirect()
                 ->action('HomeController@index')
