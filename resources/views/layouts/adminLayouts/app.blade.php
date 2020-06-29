@@ -4,8 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
+		<link rel="shortcut icon" href="{{ asset('data/img/favicon.png') }}" type="image/png">
 		
 		<title>Admin Page</title>
 
@@ -48,6 +47,7 @@
 	<!-- 
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
+	
 	<script src="{{asset('assets/scripts/jquery.min.js')}}"></script>
 	<script src="{{asset('assets/scripts/modernizr.min.js')}}"></script>
 	<script src="{{asset('assets/plugin/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -74,6 +74,15 @@
 	<script src="{{asset('assets/plugin/chart/sparkline/jquery.sparkline.min.js')}}"></script>
 	<script src="{{asset('assets/scripts/chart.sparkline.init.min.js')}}"></script>
 	<script src="{{asset('assets/scripts/main.min.js')}}"></script>
+	<script>
+		$(function(){
+			$('.main-a').each(function(){
+				if ($(this).prop('href') == window.location.href) {
+					$(this).addClass('current'); $(this).parents('li').addClass('current');
+				}
+			});
+		});
+	</script>
 </body>
 </html>
 

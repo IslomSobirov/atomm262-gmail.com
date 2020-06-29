@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class SkillController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,11 @@ class SkillController extends Controller
      */
     public function index()
     {
-        //
+        $skills = Skill::all();
+        return view('admin.skill.index', [
+            'navName' => 'Skill',
+            'skills' => $skills
+        ]);
     }
 
     /**
@@ -35,7 +45,15 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required'
+        ]);
+
+        Skill::create($validated);
+
+        return redirect()
+                ->back()
+                ->with('msg', 'Skill has been added successfuly');    
     }
 
     /**
@@ -55,9 +73,14 @@ class SkillController extends Controller
      * @param  \App\Skill  $skill
      * @return \Illuminate\Http\Response
      */
-    public function edit(Skill $skill)
+    public function edit($id)
     {
-        //
+
+        $skill = Skill::findOrFail($id);
+        return view('admin.skill.editSkill', [
+            'navName' => 'Edit skill',
+            'skill' => $skill
+        ]);
     }
 
     /**
@@ -67,9 +90,17 @@ class SkillController extends Controller
      * @param  \App\Skill  $skill
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Skill $skill)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required'
+        ]);
+        $skill = Skill::findOrFail($id);
+        $skill->update($validated);
+
+        return redirect()
+                ->route('homeSkillpage')
+                ->with('msg', 'Skill has been updated successfuly');    
     }
 
     /**
@@ -78,8 +109,12 @@ class SkillController extends Controller
      * @param  \App\Skill  $skill
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Skill $skill)
+    public function destroy($id)
     {
-        //
+        $skill = Skill::find($id);
+        $skill->delete();
+        return redirect()
+                ->back()
+                ->with('msg', 'Skill has been deleted successfuly');    
     }
 }

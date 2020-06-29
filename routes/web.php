@@ -20,13 +20,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-//Admin Page Controller
-Route::get('/admin', 'AdminPageController@index');
-Route::get('/admin/post', 'AdminPageController@publications');
-Route::get('/admin/user/{id}/delete', 'AdminPageController@delete')->name('adminDeleteUser');
-Route::get('/admin/post/{id}/delete', 'AdminPageController@deletePost')->name('adminDeletePost');
-Route::get('/admin/user/{id}/makeAdmin', 'AdminPageController@makeAdmin')->name('makeUserAdmin');
-
 
 Route::resource('/post', 'PostController')->names([
     'create' => 'post.create',
@@ -46,4 +39,23 @@ Route::post('/user/personalInfo', 'HomeController@personalInfo')->name('personal
 //Message
 Route::post('/message/send/toUser', 'MessageController@store')->name('sendMessage');
 Route::get('/message/delete/{id}', 'MessageController@destroy')->name('deleteMessage');
+
+//Skill
+//Admin Page stuff
+Route::prefix('admin')->group(function () {
+    Route::get('/', 'AdminPageController@index');
+    Route::get('/post', 'AdminPageController@publications');
+    Route::get('/user/{id}/delete', 'AdminPageController@delete')->name('adminDeleteUser');
+    Route::get('/post/{id}/delete', 'AdminPageController@deletePost')->name('adminDeletePost');
+    Route::get('/user/{id}/makeAdmin', 'AdminPageController@makeAdmin')->name('makeUserAdmin');
+
+    //Skill
+    Route::get('/skill', 'SkillController@index')->name('homeSkillpage');
+    Route::post('/skill/createSkill', 'SkillController@store')->name('addNewSkill');
+    Route::get('/skill/delete/{id}', 'SkillController@destroy')->name('deleteSkill');
+    Route::get('/skill/edit/{id}', 'SkillController@edit')->name('editSkill');
+    Route::post('/skill/update/{id}', 'SkillController@update')->name('updateSkill');
+
+
+});
 
